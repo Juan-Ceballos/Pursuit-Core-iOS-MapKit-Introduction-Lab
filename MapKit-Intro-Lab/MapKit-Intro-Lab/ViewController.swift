@@ -13,6 +13,8 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var mapView: MKMapView!
     
+    private let locationSession = CoreLocationSession()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         mapView.showsUserLocation = true

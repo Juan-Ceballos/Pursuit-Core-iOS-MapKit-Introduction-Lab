@@ -21,15 +21,12 @@ class CoreLocationSession: NSObject {
         locationManager = CLLocationManager()
         super.init()
         locationManager.delegate = self
-        
         locationManager.requestAlwaysAuthorization()
         locationManager.requestWhenInUseAuthorization()
-        
-        startSignificantLocationChanges()
-        startMonitoringRegion()
+        startSignificantLocationChange()
     }
     
-    private func startSignificantLocationChanges()   {
+    private func startSignificantLocationChange()   {
         // checks first to see if sign loc change avail on device
         if !CLLocationManager.significantLocationChangeMonitoringAvailable()    {
             return
@@ -38,18 +35,6 @@ class CoreLocationSession: NSObject {
         // instance method of locationManager which instance of CLLocationManager
         locationManager.startMonitoringSignificantLocationChanges()
     }
-    
-    private func  startMonitoringRegion()   {
-        //let location = Location.getLocations()[2] // central park
-        let identifier = "Monitoring Region"
-        //let region = CLCircularRegion(center: location.coordinate, radius: 500, identifier: identifier)
-        //region.notifyOnEntry = true
-        //region.notifyOnExit = false
-        
-        //locationManager.startMonitoring(for: region)
-    }
-    
-    
     
 }
 

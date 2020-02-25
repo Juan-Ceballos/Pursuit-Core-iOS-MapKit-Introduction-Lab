@@ -9,24 +9,40 @@
 import Foundation
 import CoreLocation
 
-struct coordinate: Codable  {
+struct SchoolOpen: Codable   {
+    
+    let schoolName: String
     let latitude: String
     let longitude: String
-}
-
-struct SchoolOpen: Codable   {
-    let schoolName: String
-    let location: coordinate
+    var coordinate: CLLocationCoordinate2D {
+        return CLLocationCoordinate2D(latitude: Double(latitude)!, longitude: Double(longitude)!)
+    }
     
     enum CodingKeys: String, CodingKey, Codable  {
         case schoolName = "school_name"
-        case location
+        case latitude
+        case longitude
     }
 }
 
 extension SchoolOpen    {
-    static func fetchSchools()  {
+    static func fetchSchools() -> [SchoolOpen] {
+        var schools = [SchoolOpen]()
         
+        guard let fileURL = Bundle.main.url(forResource: "SchoolOpen", withExtension: "json")
+            else    {
+                fatalError()
+        }
+        
+        do  {
+            let data = try Data(contentsOf: fileURL)
+            let schoolData = try JSONDecoder().decode([SchoolOpen].self, from: data)
+            schools = schoolData
+        }
+        catch   {
+            fatalError()
+        }
+        return schools
     }
 }
 
