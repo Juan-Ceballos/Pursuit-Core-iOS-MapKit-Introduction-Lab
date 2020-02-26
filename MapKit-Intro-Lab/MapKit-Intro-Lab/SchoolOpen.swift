@@ -29,7 +29,7 @@ extension SchoolOpen    {
     static func fetchSchools() -> [SchoolOpen] {
         var schools = [SchoolOpen]()
         
-        guard let fileURL = Bundle.main.url(forResource: "SchoolOpen", withExtension: "json")
+        guard let fileURL = Bundle.main.url(forResource: "SchoolsOpen", withExtension: "json")
             else    {
                 fatalError()
         }

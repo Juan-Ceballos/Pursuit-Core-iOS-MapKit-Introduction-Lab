@@ -18,7 +18,26 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         mapView.showsUserLocation = true
+        loadMapViews()
+    }
+    
+    func makeAnnotations() -> [MKPointAnnotation]   {
+        var annotations = [MKPointAnnotation]()
+        for school in SchoolOpen.fetchSchools() {
+            let annotation = MKPointAnnotation()
+            annotation.coordinate = school.coordinate
+            annotation.title = school.schoolName
+            annotations.append(annotation)
+        }
+        return annotations
+    }
+    
+    private func loadMapViews() {
+        let annotations = makeAnnotations()
+        mapView.addAnnotations(annotations)
+        mapView.showAnnotations(annotations, animated: true)
     }
 }
+
 
 
